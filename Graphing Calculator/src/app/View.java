@@ -45,7 +45,7 @@ public class View {
 	private void addComponents() {
 		
 		
-		screen = new Screen(4,4,286,286);
+		screen = new Screen(7,7,280,280);
 		frame.add(screen);
 	
 		
