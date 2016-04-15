@@ -12,6 +12,8 @@ public class Controller {
 	
 	public void control(){
 		
+//		view.update();
+		
 	}
 
 }
