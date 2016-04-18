@@ -21,6 +21,9 @@ public class AppThread implements Runnable{
 		
 		//sets up instances of view and model, and attaches it to the instance of controller
 		view = new View();
+		
+		
+		
 		model = new Model();
 		controller = new Controller(model, view);
 		

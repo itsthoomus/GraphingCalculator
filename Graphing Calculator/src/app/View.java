@@ -9,7 +9,7 @@ public class View {
 	// background and frame
 	public JPanel background;
 	public JFrame frame;
-	public Screen screen;
+	public ScreenPanel screenPanel;
 	
 	public View(){
 		
@@ -45,8 +45,8 @@ public class View {
 	private void addComponents() {
 		
 		
-		screen = new Screen(7,7,280,280);
-		frame.add(screen);
+		screenPanel = new ScreenPanel(7,7,280);
+		frame.add(screenPanel);
 	
 		
 	}
