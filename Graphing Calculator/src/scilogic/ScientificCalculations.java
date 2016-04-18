@@ -1,14 +1,21 @@
 package scilogic;
 
-
 public class ScientificCalculations
+
+
+/***
+ * Project Manager (Owen) Changes:
+ * 04/18/16 - Added method overload functionality so second paramater isnt required for trig functions
+ * 			- Removed main method and replaced with calculate method
+ * 			- Removed static from methods and made calculate method return the values
+ */
 {
 	static String operationType;
 	static double par1;
 	static double par2;
 
 	// variables with underscores are cancer but required.
-	public void sciCalculate(String operationType_, double par1_, double par2_)
+	public double calculate(String operationType_, double par1_, double par2_)
 	{
 
 		operationType = operationType_;
@@ -18,61 +25,132 @@ public class ScientificCalculations
 		switch (operationType)
 		{
 		case "sin":
-			sin();
-			break;
+			return sin();
+		
 		case "cos":
-			cos();
-			break;
+			return cos();
+			
 		case "tan":
-			tan();
-			break;
+			return tan();
+			
 		case "ln":
-			ln();
-			break;
+			return ln();
+			
 		case "log":
-			log();
-			break;
+			return log();
+			
 		case "factorial":
-			factorial((int) par1);
-			break;
+			return factorial((int) par1);
+			
 		case "power":
-			power();
-			break;
+			return power();
+		
 		case "squareRoot":
-			squareRoot();
-			break;
+			return squareRoot();
+		
 		case "add":
-			add();
-			break;
+			return add();
+			
 		case "subtract":
-			subtract();
-			break;
+			return subtract();
+			
 		case "divide":
-			divide();
-			break;
+			return divide();
+		
 		case "multiply":
-			multiply();
-			break;
+			return multiply();
+		
 		case "inverseSin":
-			inverseSin();
-			break;
+			return inverseSin();
+		
 		case "inverseCos":
-			inverseCos();
-			break;
+			return inverseCos();
+		
 		case "inverseTan":
-			inverseTan();
-			break;
+			return inverseTan();
+			
 		case "tenToTheX":
-			tenToTheX();
-			break;
+			return tenToTheX();
+			
 		case "eToTheX":
-			eToTheX();
-			break;
+			return eToTheX();
+		
 		case "sqaured":
-			sqaured();
-			break;
+			return sqaured();
+			
 
 		}
+		
+		return 0;
+
+	}
+	
+	public double calculate(String operationType_, double par1_)
+	{
+
+		operationType = operationType_;
+		par1 = par1_;
+
+		switch (operationType)
+		{
+		case "sin":
+			return sin();
+		
+		case "cos":
+			return cos();
+			
+		case "tan":
+			return tan();
+			
+		case "ln":
+			return ln();
+			
+		case "log":
+			return log();
+			
+		case "factorial":
+			return factorial((int) par1);
+			
+		case "power":
+			return power();
+		
+		case "squareRoot":
+			return squareRoot();
+		
+		case "add":
+			return add();
+			
+		case "subtract":
+			return subtract();
+			
+		case "divide":
+			return divide();
+		
+		case "multiply":
+			return multiply();
+		
+		case "inverseSin":
+			return inverseSin();
+		
+		case "inverseCos":
+			return inverseCos();
+		
+		case "inverseTan":
+			return inverseTan();
+			
+		case "tenToTheX":
+			return tenToTheX();
+			
+		case "eToTheX":
+			return eToTheX();
+		
+		case "sqaured":
+			return sqaured();
+			
+
+		}
+		
+		return 0;
 
 	}
 
@@ -82,37 +160,37 @@ public class ScientificCalculations
 	// answer
 	// answer become first variable and repeat
 
-	static public double sin()
+	 public double sin()
 	{
 		return Math.sin(par1);
 
 	}
 
-	static public double cos()
+	public double cos()
 	{
 		return Math.cos(par1);
 
 	}
 
-	static public double tan()
+	public double tan()
 	{
 		return Math.tan(par1);
 
 	}
 
-	static public double ln()
+	public double ln()
 	{
 		return Math.log(par1);
 
 	}
 
-	static public double log()
+	public double log()
 	{
 		return Math.log10(par1);
 
 	}
 
-	static public double factorial(int memeNumber)
+	public double factorial(int memeNumber)
 	{
 		if (memeNumber == 1)
 		{
@@ -125,73 +203,73 @@ public class ScientificCalculations
 
 	}
 
-	static public double power()
+	public double power()
 	{
 		return Math.pow(par1, par2);
 
 	}
 
-	static public double squareRoot()
+	public double squareRoot()
 	{
 		return Math.sqrt(par1);
 
 	}
 
-	static public double add()
+	public double add()
 	{
 		return (par1 + par2);
 
 	}
 
-	static public double subtract()
+	public double subtract()
 	{
 		return (par1 - par2);
 
 	}
 
-	static public double divide()
+	public double divide()
 	{
 		return (par1 / par2);
 
 	}
 
-	static public double multiply()
+	public double multiply()
 	{
 		return (par1 * par2);
 
 	}
 
-	static public double inverseSin()
+	public double inverseSin()
 	{
 		return Math.asin(par1);
 
 	}
 
-	static public double inverseCos()
+	public double inverseCos()
 	{
 		return Math.acos(par1);
 
 	}
 
-	static public double inverseTan()
+	public double inverseTan()
 	{
 		return Math.atan(par1);
 
 	}
 
-	static public double tenToTheX()
+	public double tenToTheX()
 	{
 		return Math.pow(10, par1);
 
 	}
 
-	static public double eToTheX()
+	public double eToTheX()
 	{
 		return Math.pow(Math.E, par1);
 
 	}
 
-	static public double sqaured()
+	public double sqaured()
 	{
 		return Math.pow(par1, 2);
 

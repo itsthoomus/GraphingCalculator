@@ -28,9 +28,11 @@ public class MenuFrame extends JFrame {
 		
 		public MenuPanel() {
 			JButton sciButton = new JButton("Scientific Mode");
-			sciButton.setBounds(200, 150, 200, 100);
+			JButton graphButton = new JButton("Graphing Mode");
+			sciButton.setBounds(75, 150, 200, 100);
+			graphButton.setBounds(350, 150, 200, 100);
 			add(sciButton);
-			
+			add (graphButton);
 		}
 		
 		
