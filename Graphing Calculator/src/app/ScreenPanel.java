@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class ScreenPanel extends JPanel{
 	
-	private float xTranslation;
-	private float yTranslation;
+	private float xTranslation = 0;
+	private float yTranslation = 0;
 	
 	private int panelSize;
 	
@@ -21,9 +21,11 @@ public class ScreenPanel extends JPanel{
 	
 	private Point [] functionPoints;
 	private Point [] axisPoints;
+	private Point [] axisScalePoints;
 	
 	private Point [] screenFunctionPoints;
 	private Point [] screenAxisPoints;
+	private Point [] screenAxisScale;
 
 
 	
@@ -31,9 +33,9 @@ public class ScreenPanel extends JPanel{
 		super();
 		this.panelSize = panelSize;
 		this.setBounds(x, y, panelSize, panelSize);
-
 		
-		update();
+		
+
 	}
 
 	
@@ -55,9 +57,18 @@ public class ScreenPanel extends JPanel{
 		
 		// draw function from points
 		
-		for (Point p: screenFunctionPoints){
-			g2.drawOval((int)p.getX(), (int)p.getY(), 1, 1);
+		if (screenFunctionPoints != null){
+		
+			for (Point p: screenFunctionPoints){
+				
+				g2.fillRect((int) p.getX(), (int) p.getY(), 1, 1);
+				
+			}
 		}
+		
+		
+		
+//		g2.drawPolyline(Point.getIntegerValues(Point.VAR_X, screenFunctionPoints), Point.getIntegerValues(Point.VAR_Y, screenFunctionPoints), screenFunctionPoints.length);
 		
 		
 		
@@ -73,11 +84,10 @@ public class ScreenPanel extends JPanel{
 	private Point [] createScreenPoints(Point [] functionPoints){
 		
 		ArrayList<Point> plottables = new ArrayList<>();
-		
-		
-		
-		
+
 		for (int i =0; i< functionPoints.length;i++){
+
+			
 			
 			if ((xTranslation-(gridSize/2.0f)< functionPoints[i].getX()) && (xTranslation+(gridSize/2.0f)> functionPoints[i].getX())){
 				if ((yTranslation-(gridSize/2.0f)< functionPoints[i].getY()) && (yTranslation+(gridSize/2.0f)> functionPoints[i].getY())){
@@ -92,10 +102,15 @@ public class ScreenPanel extends JPanel{
 		
 		for (int i =0; i< screenPoints.length;i++){
 			
-			int x = Math.round((gridSize/2.0f + (plottables.get(i).getX() - xTranslation))/this.getPanelSize());
-			int y = Math.round((gridSize/2.0f - (plottables.get(i).getY() - yTranslation))/this.getPanelSize());
+			
+			
+			int x = Math.round((gridSize/2.0f + (plottables.get(i).getX() - xTranslation))/(gridSize/(float)this.getPanelSize()));
+			int y = Math.round((gridSize/2.0f - (plottables.get(i).getY() - yTranslation))/(gridSize/(float)this.getPanelSize()));
+			
+	
 			
 			screenPoints[i] = new Point(x,y);
+			
 			
 		}
 		
@@ -103,6 +118,11 @@ public class ScreenPanel extends JPanel{
 
 		
 
+	}
+	
+	
+	private Point [] createScreenAxisPoints(){
+		
 	}
 	
 	/**
@@ -122,6 +142,7 @@ public class ScreenPanel extends JPanel{
 			functionPoints[i] = new Point(xCoords[i], yCoords[i]);
 		}
 
+		update();
 				
 	}
 	
@@ -139,7 +160,28 @@ public class ScreenPanel extends JPanel{
 	
 	public void update(){
 		
-		screenFunctionPoints = createScreenPoints(functionPoints);
+		if (functionPoints!= null){
+			screenFunctionPoints = createScreenPoints(functionPoints);
+		}
+		
+		axisPoints = new Point[]{
+			new Point(-gridSize/2.0f, 0.0f),
+			new Point(gridSize/2.0f, 0.0f),
+			new Point(0.0f, -gridSize/2.0f),
+			new Point(0.0f, gridSize/2.0f),
+		};
+		
+		axisScalePoints = new Point[(int) (4*(gridSize%1))];
+		
+		for (int i = 0; i<(axisScalePoints.length/2); i++){
+			
+		}
+		
+		
+		
+		
+				
+		
 		
 		repaint();
 		revalidate();
@@ -149,6 +191,7 @@ public class ScreenPanel extends JPanel{
 	public int getPanelSize(){
 		return panelSize;
 	}
+	
 	
 	
 	

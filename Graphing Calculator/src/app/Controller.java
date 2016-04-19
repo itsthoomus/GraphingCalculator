@@ -12,8 +12,6 @@ public class Controller {
 	
 	public void control(){
 		
-//		view.update();
-		
 		view.screenPanel.passFunctionCoords(model.getXValues(), model.getSineYValues());
 		
 	}

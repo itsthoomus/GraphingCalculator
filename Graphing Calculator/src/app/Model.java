@@ -8,9 +8,9 @@ package app;
 public class Model {
 	
 	public float [] getXValues(){
-		float [] result = new float [10000];
-		for (int i = -5000; i< 5000;i++){
-			result[i+5000] = i/100.0f;
+		float [] result = new float [100000];
+		for (int i = -50000; i< 50000;i++){
+			result[i+50000] = i/1000.0f;
 		}
 		return result;
 		
@@ -18,10 +18,11 @@ public class Model {
 	
 	public float [] getSineYValues(){
 		
-		float [] result = new float [10000];
+		float [] result = new float [100000];
 		
-		for (int i = -5000; i< 5000;i++){
-			result[i+5000] = (float) Math.sin(i/100.0f);
+		for (int i = -50000; i< 50000;i++){
+//			result[i+50000] = (float) Math.sin(i/1000.0f);
+			result[i+50000] = (float) Math.pow((i/1000.0f),2);
 		}
 		
 		return result;
