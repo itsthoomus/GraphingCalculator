@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class ScreenPanel extends JPanel{
 	
-	private float xTranslation = 0;
-	private float yTranslation = 0;
+	private float xTranslation = 0.0f;
+	private float yTranslation = 0.0f;
 	
 	private int panelSize;
 	
@@ -25,7 +25,7 @@ public class ScreenPanel extends JPanel{
 	
 	private Point [] screenFunctionPoints;
 	private Point [] screenAxisPoints;
-	private Point [] screenAxisScale;
+	private Point [] screenAxisScalePoints;
 
 
 	
@@ -65,12 +65,20 @@ public class ScreenPanel extends JPanel{
 				
 			}
 		}
-		
-		
-		
+
 //		g2.drawPolyline(Point.getIntegerValues(Point.VAR_X, screenFunctionPoints), Point.getIntegerValues(Point.VAR_Y, screenFunctionPoints), screenFunctionPoints.length);
 		
+		if (screenAxisPoints != null){
+			
+			g2.drawLine((int) screenAxisPoints[0].getX(), (int) screenAxisPoints[0].getY(), (int) screenAxisPoints[1].getX(), (int) screenAxisPoints[1].getY());
+			g2.drawLine((int) screenAxisPoints[2].getX(), (int) screenAxisPoints[2].getY(), (int) screenAxisPoints[3].getX(), (int) screenAxisPoints[3].getY());
+		}
 		
+		if (screenAxisScalePoints != null){
+			for (int i=0; i< screenAxisScalePoints.length; i+=2){
+				g2.drawLine((int) screenAxisScalePoints[i].getX(), (int) screenAxisScalePoints[i].getY(), (int) screenAxisScalePoints[i+1].getX(), (int) screenAxisScalePoints[i+1].getY());
+			}
+		}
 		
 		
 
@@ -121,8 +129,23 @@ public class ScreenPanel extends JPanel{
 	}
 	
 	
-	private Point [] createScreenAxisPoints(){
+	private Point [] createScreenAxisPoints(Point [] points){
 		
+		Point [] screenPoints = new Point [points.length];
+		
+		for (int i =0; i< screenPoints.length;i++){
+
+			int x = Math.round((gridSize/2.0f + (points[i].getX() - xTranslation))/(gridSize/(float)this.getPanelSize()));
+			int y = Math.round((gridSize/2.0f - (points[i].getY() - yTranslation))/(gridSize/(float)this.getPanelSize()));
+			
+	
+			
+			screenPoints[i] = new Point(x,y);
+			
+			
+		}
+				
+		return screenPoints;
 	}
 	
 	/**
@@ -147,17 +170,31 @@ public class ScreenPanel extends JPanel{
 	}
 	
 
-	
+	/**
+	 * Given a factor in the form of a float, this function scales the screen by that factor
+	 * @param factor the factor the screen will be scaled by
+	 */
 	public void scale(float factor){
 		this.gridSize = this.gridSize * factor;
 	}
 	
+	/**
+	 * given an x-value and a y-value, this function translates the view of screen by that amount
+	 * e.g. 3,4 translates the screen up and to the right 3,4 by translating the actual function down and to the left -3, -4
+	 * @param x horizontal translation
+	 * @param y vertical translation
+	 */
 	public void translate(float x, float y){
 		this.xTranslation+=x;
 		this.yTranslation+=y;
 	}
 	
 	
+	/**
+	 * Call to update the screen after a change.
+	 * Updates internal function and axis points as well as screen values.
+	 * Also repaints and revalidates.
+	 */
 	public void update(){
 		
 		if (functionPoints!= null){
@@ -165,22 +202,26 @@ public class ScreenPanel extends JPanel{
 		}
 		
 		axisPoints = new Point[]{
-			new Point(-gridSize/2.0f, 0.0f),
-			new Point(gridSize/2.0f, 0.0f),
-			new Point(0.0f, -gridSize/2.0f),
-			new Point(0.0f, gridSize/2.0f),
+			new Point(-gridSize/2.0f + xTranslation, 0.0f),
+			new Point(gridSize/2.0f + xTranslation, 0.0f),
+			new Point(0.0f, -gridSize/2.0f  + yTranslation),
+			new Point(0.0f, gridSize/2.0f  + yTranslation),
 		};
 		
-		axisScalePoints = new Point[(int) (4*(gridSize%1))];
+		axisScalePoints = new Point[4*((int)gridSize+1)];
 		
-		for (int i = 0; i<(axisScalePoints.length/2); i++){
-			
+		for (int i = 0; i<(axisScalePoints.length/2); i+=2){
+			axisScalePoints[i] = new Point(xTranslation + i/2-(axisScalePoints.length/8), gridSize/80.0f);
+			axisScalePoints[i+1] = new Point(xTranslation + i/2-(axisScalePoints.length/8), -gridSize/80.0f);
 		}
 		
+		for (int i = axisScalePoints.length/2; i<axisScalePoints.length; i+=2){
+			axisScalePoints[i] = new Point(gridSize/80.0f, yTranslation + i/2-(axisScalePoints.length/8) - axisScalePoints.length/4);
+			axisScalePoints[i+1] = new Point(-gridSize/80.0f, yTranslation + i/2-(axisScalePoints.length/8) - axisScalePoints.length/4);
+		}
 		
-		
-		
-				
+		screenAxisPoints = createScreenAxisPoints(axisPoints);
+		screenAxisScalePoints = createScreenAxisPoints(axisScalePoints);
 		
 		
 		repaint();
