@@ -66,14 +66,15 @@ public class ScreenPanel extends JPanel{
 			}
 		}
 
-//		g2.drawPolyline(Point.getIntegerValues(Point.VAR_X, screenFunctionPoints), Point.getIntegerValues(Point.VAR_Y, screenFunctionPoints), screenFunctionPoints.length);
-		
+
+		// draw x and y axis
 		if (screenAxisPoints != null){
 			
 			g2.drawLine((int) screenAxisPoints[0].getX(), (int) screenAxisPoints[0].getY(), (int) screenAxisPoints[1].getX(), (int) screenAxisPoints[1].getY());
 			g2.drawLine((int) screenAxisPoints[2].getX(), (int) screenAxisPoints[2].getY(), (int) screenAxisPoints[3].getX(), (int) screenAxisPoints[3].getY());
 		}
 		
+		// draw scale ticks
 		if (screenAxisScalePoints != null){
 			for (int i=0; i< screenAxisScalePoints.length; i+=2){
 				g2.drawLine((int) screenAxisScalePoints[i].getX(), (int) screenAxisScalePoints[i].getY(), (int) screenAxisScalePoints[i+1].getX(), (int) screenAxisScalePoints[i+1].getY());

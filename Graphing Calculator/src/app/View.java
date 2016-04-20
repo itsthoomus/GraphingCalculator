@@ -4,6 +4,11 @@ package app;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * 
+ * @author 
+ *
+ */
 public class View {
 	
 	// background and frame
