@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class ScreenPanel extends JPanel{
 	
+	public static int MOVE_MODE = 0;
+	public static int TRACE_MODE = 1;
+	
 	private float xTranslation = 0.0f;
 	private float yTranslation = 0.0f;
 	
@@ -26,6 +29,10 @@ public class ScreenPanel extends JPanel{
 	private Point [] screenFunctionPoints;
 	private Point [] screenAxisPoints;
 	private Point [] screenAxisScalePoints;
+	
+	public int currentMode = MOVE_MODE;
+	
+	
 
 
 	
@@ -33,7 +40,6 @@ public class ScreenPanel extends JPanel{
 		super();
 		this.panelSize = panelSize;
 		this.setBounds(x, y, panelSize, panelSize);
-		
 		
 
 	}
@@ -80,6 +86,10 @@ public class ScreenPanel extends JPanel{
 				g2.drawLine((int) screenAxisScalePoints[i].getX(), (int) screenAxisScalePoints[i].getY(), (int) screenAxisScalePoints[i+1].getX(), (int) screenAxisScalePoints[i+1].getY());
 			}
 		}
+		
+		// show x and y coordinates
+		g2.drawString("X = "+Math.round(xTranslation*10)/10.0f, panelSize - 70, panelSize - 30);
+		g2.drawString("Y = "+Math.round(yTranslation*10)/10.0f, panelSize - 70, panelSize - 10);
 		
 		
 
@@ -130,6 +140,11 @@ public class ScreenPanel extends JPanel{
 	}
 	
 	
+	/**
+	 * 
+	 * @param points the array of function points
+	 * @return the points converted to screen coordinates
+	 */
 	private Point [] createScreenAxisPoints(Point [] points){
 		
 		Point [] screenPoints = new Point [points.length];
@@ -212,13 +227,13 @@ public class ScreenPanel extends JPanel{
 		axisScalePoints = new Point[4*((int)gridSize+1)];
 		
 		for (int i = 0; i<(axisScalePoints.length/2); i+=2){
-			axisScalePoints[i] = new Point(xTranslation + i/2-(axisScalePoints.length/8), gridSize/80.0f);
-			axisScalePoints[i+1] = new Point(xTranslation + i/2-(axisScalePoints.length/8), -gridSize/80.0f);
+			axisScalePoints[i] = new Point(xTranslation + i/2-(axisScalePoints.length/8), 0.25f);
+			axisScalePoints[i+1] = new Point(xTranslation + i/2-(axisScalePoints.length/8), -0.25f);
 		}
 		
 		for (int i = axisScalePoints.length/2; i<axisScalePoints.length; i+=2){
-			axisScalePoints[i] = new Point(gridSize/80.0f, yTranslation + i/2-(axisScalePoints.length/8) - axisScalePoints.length/4);
-			axisScalePoints[i+1] = new Point(-gridSize/80.0f, yTranslation + i/2-(axisScalePoints.length/8) - axisScalePoints.length/4);
+			axisScalePoints[i] = new Point(-0.25f, yTranslation + i/2-(axisScalePoints.length/8) - axisScalePoints.length/4);
+			axisScalePoints[i+1] = new Point(0.25f, yTranslation + i/2-(axisScalePoints.length/8) - axisScalePoints.length/4);
 		}
 		
 		screenAxisPoints = createScreenAxisPoints(axisPoints);
@@ -230,9 +245,31 @@ public class ScreenPanel extends JPanel{
 		
 	}
 	
+	/**
+	 * grabs the pixel length of the screen (screen is always square)
+	 * @return the pixel length of the screen
+	 */
 	public int getPanelSize(){
 		return panelSize;
 	}
+	
+	/**
+	 * This function is used by the logic portion of the calculator to grab the boundaries of the screen displayed.
+	 * The boundaries of the screen can be used to calculate the sufficient points of the function to be plotted.
+	 * 
+	 * @return a length 2 array. The first element contains the left x-bound to start calculating values from. The second element contains the right x-bound to stop calculating values at.
+	 */
+	public float [] getXBoundaries(){
+		
+		float [] XBoundaries = new float [2];
+		
+		XBoundaries[0] = xTranslation - gridSize/2.0f;
+		XBoundaries[1] = xTranslation + gridSize/2.0f;
+		
+		return XBoundaries;
+	}
+	
+	
 	
 	
 	

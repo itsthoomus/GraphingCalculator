@@ -1,5 +1,12 @@
 package app;
 
+/**
+ * connects the logic of the program with what is visible
+ * creates instances of the model (containing the logic) and the view (display code)
+ * 
+ * @author alexbie
+ *
+ */
 public class Controller {
 	
 	private Model model;

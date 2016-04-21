@@ -1,5 +1,9 @@
 package app;
 
+/**
+ * This class serves as a simple data structure to couple x and y coordinates to simplify the drawing process.
+ * @author alexbie
+ */
 public class Point {
 	
 	private float x;

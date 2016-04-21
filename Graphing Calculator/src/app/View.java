@@ -5,9 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * 
- * @author 
- *
+ * This class handles all the graphical elements of the program, containing all functions used to display things on the screen.
+ * The controller links this with the underlying logic from the model.
+ * @author alexbie
  */
 public class View {
 	

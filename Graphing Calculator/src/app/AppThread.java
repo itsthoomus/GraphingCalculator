@@ -23,7 +23,6 @@ public class AppThread implements Runnable{
 		view = new View();
 		
 		
-		
 		model = new Model();
 		controller = new Controller(model, view);
 		
