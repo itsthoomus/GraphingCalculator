@@ -30,7 +30,9 @@ public class ScreenPanel extends JPanel{
 	private Point [] screenAxisPoints;
 	private Point [] screenAxisScalePoints;
 	
-	public int currentMode = MOVE_MODE;
+	private int currentMode = MOVE_MODE;
+	private int dotsPerUnit;
+	private int traceIndex;
 	
 	
 
@@ -88,8 +90,14 @@ public class ScreenPanel extends JPanel{
 		}
 		
 		// show x and y coordinates
-		g2.drawString("X = "+Math.round(xTranslation*10)/10.0f, panelSize - 70, panelSize - 30);
-		g2.drawString("Y = "+Math.round(yTranslation*10)/10.0f, panelSize - 70, panelSize - 10);
+		g2.drawString("X = "+Math.round(xTranslation*100)/100.0f, panelSize - 70, panelSize - 30);
+		g2.drawString("Y = "+Math.round(yTranslation*100)/100.0f, panelSize - 70, panelSize - 10);
+		
+		// draw cursor if in trace mode
+		if (currentMode == TRACE_MODE){
+			g2.setColor(Color.BLUE);
+			g2.fillOval(getPanelSize()/2 - getPanelSize()/70, getPanelSize()/2 - getPanelSize()/50, 8, 8);
+		}
 		
 		
 
@@ -166,20 +174,24 @@ public class ScreenPanel extends JPanel{
 	
 	/**
 	 * takes a set of ordered pairs through 2 arrays, one carrying the x-coordinates and one 
-	 * carrying the corresponding y-coordinates
+	 * carrying the corresponding y-coordinates.
+	 * Passes them over the screen as part of a Point array.
 	 * 
-	 * passes them over the screen as part of a Point array
+	 * Also takes the intended resolution of the screen (number of points within x-interval of 1.0).
 	 * 
 	 * @param xCoords the x-values of the ordered pairs
 	 * @param yCoords the y-values of the ordered pairs
+	 * @param dotsPerUnit the number of points per 1 unit.
 	 */
-	public void passFunctionCoords(float [] xCoords, float [] yCoords){
+	public void passFunctionCoords(float [] xCoords, float [] yCoords, int dotsPerUnit){
 		
 		functionPoints = new Point [xCoords.length];
 		
 		for (int i =0; i< xCoords.length;i++){
 			functionPoints[i] = new Point(xCoords[i], yCoords[i]);
 		}
+		
+		this.dotsPerUnit = dotsPerUnit;
 
 		update();
 				
@@ -227,13 +239,15 @@ public class ScreenPanel extends JPanel{
 		axisScalePoints = new Point[4*((int)gridSize+1)];
 		
 		for (int i = 0; i<(axisScalePoints.length/2); i+=2){
-			axisScalePoints[i] = new Point(xTranslation + i/2-(axisScalePoints.length/8), 0.25f);
-			axisScalePoints[i+1] = new Point(xTranslation + i/2-(axisScalePoints.length/8), -0.25f);
+			axisScalePoints[i] = new Point(Math.round(xTranslation + i/2-(axisScalePoints.length/8)), 0.25f);
+			axisScalePoints[i+1] = new Point(Math.round(xTranslation + i/2-(axisScalePoints.length/8)), -0.25f);
+			
+			System.out.println(axisScalePoints[i].getX() + " "+axisScalePoints[i].getY());
 		}
 		
 		for (int i = axisScalePoints.length/2; i<axisScalePoints.length; i+=2){
-			axisScalePoints[i] = new Point(-0.25f, yTranslation + i/2-(axisScalePoints.length/8) - axisScalePoints.length/4);
-			axisScalePoints[i+1] = new Point(0.25f, yTranslation + i/2-(axisScalePoints.length/8) - axisScalePoints.length/4);
+			axisScalePoints[i] = new Point(-0.25f, Math.round(yTranslation + i/2-(axisScalePoints.length/8) - axisScalePoints.length/4));
+			axisScalePoints[i+1] = new Point(0.25f, Math.round(yTranslation + i/2-(axisScalePoints.length/8) - axisScalePoints.length/4));
 		}
 		
 		screenAxisPoints = createScreenAxisPoints(axisPoints);
@@ -267,6 +281,83 @@ public class ScreenPanel extends JPanel{
 		XBoundaries[1] = xTranslation + gridSize/2.0f;
 		
 		return XBoundaries;
+	}
+	
+	/**
+	 * Gets the current size of the grid displayed by the screen panel. Indicates level of zoom.
+	 * *Default grid size = 10.0
+	 * @return grid size value
+	 */
+	public float getGridSize(){
+		return gridSize;
+		
+	}
+	
+	/**
+	 * Sets the mode of the screen.
+	 * Possible modes: ScreenPanel.MOVE_MODE, ScreenPanel.TRACE_MODE
+	 * @param currentMode the integer value representing the current mode of the screen. Accessed through the static fields of ScreenPanel.
+	 */
+	public void setCurrentMode(int screenPanelMode){
+		this.currentMode = screenPanelMode;
+		
+	}
+	
+	/**
+	 * Gets the current mode of the screen panel.
+	 * Possible modes: ScreenPanel.MOVE_MODE, ScreenPanel.TRACE_MODE
+	 * @return currentMode the integer value representing the current mode of the screen.
+	 */
+	public int getCurrentMode(){
+		return currentMode;
+		
+	}
+	
+	
+	/**
+	 * Given an x and y value, this function centres the screen on that value.
+	 * @param x
+	 * @param y
+	 */
+	public void setCentre(float x, float y){
+		this.xTranslation = x;
+		this.yTranslation = y;
+	}
+	
+	/**
+	 * gets the resolution of the function points (amount of points within an x-interval of 1).
+	 * @return integer value representing the resolution of function points.
+	 */
+	public int getDotsPerUnit(){
+		return dotsPerUnit;
+	}
+	
+	/**
+	 * Get an array of points for all the plotted values of the function.
+	 * @return point array with all function values.
+	 */
+	public Point [] getFunctionPoints(){
+		return functionPoints;
+	}
+
+
+
+	/**
+	 * gets the current index of the function for trace mode.
+	 * @return current index of the functionPoints []
+	 */
+	public int getTraceIndex() {
+		return traceIndex;
+	}
+
+
+
+	/**
+	 * sets the current index of the function for trace mode.
+	 * @param traceIndex
+	 */
+	public void setTraceIndex(int traceIndex) {
+		this.traceIndex = traceIndex;
 	}
 	
 	

@@ -7,6 +7,8 @@ package app;
  */
 public class Model {
 	
+	// example logic component used to test functions of the screen
+	
 	public float [] getXValues(){
 		float [] result = new float [500000];
 		for (int i = -250000; i< 250000;i++){
