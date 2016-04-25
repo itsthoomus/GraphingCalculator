@@ -1,155 +1,68 @@
 package scilogic;
 
+// Project Manager Changes: Added method overloading to better support one-variable operations
+
 public class ScientificCalculations
-
-
-/***
- * Project Manager (Owen) Changes:
- * 04/18/16 - Added method overload functionality so second paramater isnt required for trig functions
- * 			- Removed main method and replaced with calculate method
- * 			- Removed static from methods and made calculate method return the values
- */
 {
-	static String operationType;
-	static double par1;
-	static double par2;
 
-	// variables with underscores are cancer but required.
-	public double calculate(String operationType_, double par1_, double par2_)
+	public static double evalaute(String operationType, double par1,
+			double par2)
 	{
-
-		operationType = operationType_;
-		par1 = par1_;
-		par2 = par2_;
 
 		switch (operationType)
 		{
-		case "sin":
-			return sin();
-		
-		case "cos":
-			return cos();
-			
-		case "tan":
-			return tan();
-			
-		case "ln":
-			return ln();
-			
-		case "log":
-			return log();
-			
-		case "factorial":
-			return factorial((int) par1);
-			
+	
 		case "power":
-			return power();
-		
-		case "squareRoot":
-			return squareRoot();
-		
+			return power(par1, par2);
+	
 		case "add":
-			return add();
-			
+			return add(par1, par2);
 		case "subtract":
-			return subtract();
-			
+			return subtract(par1, par2);
 		case "divide":
-			return divide();
-		
+			return divide(par1, par2);
 		case "multiply":
-			return multiply();
-		
-		case "inverseSin":
-			return inverseSin();
-		
-		case "inverseCos":
-			return inverseCos();
-		
-		case "inverseTan":
-			return inverseTan();
-			
-		case "tenToTheX":
-			return tenToTheX();
-			
-		case "eToTheX":
-			return eToTheX();
-		
-		case "sqaured":
-			return sqaured();
-			
+			return multiply(par1, par2);
 
 		}
-		
+		System.err.println("operation type unrecognized");
 		return 0;
 
 	}
 	
-	public double calculate(String operationType_, double par1_)
+	public static double evalaute(String operationType, double par1)
 	{
-
-		operationType = operationType_;
-		par1 = par1_;
 
 		switch (operationType)
 		{
 		case "sin":
-			return sin();
-		
+			return sin(par1);
 		case "cos":
-			return cos();
-			
+			return cos(par1);
 		case "tan":
-			return tan();
-			
+			return tan(par1);
 		case "ln":
-			return ln();
-			
+			return ln(par1);
 		case "log":
-			return log();
-			
+			return log(par1);
 		case "factorial":
-			return factorial((int) par1);
-			
-		case "power":
-			return power();
-		
+			   return factorial((int) par1);
 		case "squareRoot":
-			return squareRoot();
-		
-		case "add":
-			return add();
-			
-		case "subtract":
-			return subtract();
-			
-		case "divide":
-			return divide();
-		
-		case "multiply":
-			return multiply();
-		
+			return squareRoot(par1);
 		case "inverseSin":
-			return inverseSin();
-		
+			return inverseSin(par1);
 		case "inverseCos":
-			return inverseCos();
-		
+			return inverseCos(par1);
 		case "inverseTan":
-			return inverseTan();
-			
+			return inverseTan(par1);
 		case "tenToTheX":
-			return tenToTheX();
-			
+			return tenToTheX(par1);
 		case "eToTheX":
-			return eToTheX();
-		
+			return eToTheX(par1);
 		case "sqaured":
-			return sqaured();
-			
-
+			return sqaured(par1);
 		}
-		
+		System.err.println("operation type unrecognized");
 		return 0;
 
 	}
@@ -160,116 +73,114 @@ public class ScientificCalculations
 	// answer
 	// answer become first variable and repeat
 
-	 public double sin()
+	static public double sin(double par1)
 	{
 		return Math.sin(par1);
 
 	}
 
-	public double cos()
+	static public double cos(double par1)
 	{
 		return Math.cos(par1);
 
 	}
 
-	public double tan()
+	static public double tan(double par1)
 	{
 		return Math.tan(par1);
 
 	}
 
-	public double ln()
+	static public double ln(double par1)
 	{
 		return Math.log(par1);
 
 	}
 
-	public double log()
+	static public double log(double par1)
 	{
 		return Math.log10(par1);
 
 	}
 
-	public double factorial(int memeNumber)
-	{
-		if (memeNumber == 1)
-		{
+	static public double factorial(int par1) { 
+		
+		if (par1 == 1) {
 			return 1;
-
-		} else
-		{
-			return par1 * factorial(memeNumber - 1);
+		} 
+		else {
+			return par1 * factorial(par1 - 1); 
 		}
 
 	}
 
-	public double power()
+	static public double power(double par1, double par2)
 	{
 		return Math.pow(par1, par2);
 
 	}
 
-	public double squareRoot()
+	static public double squareRoot(double par1)
 	{
 		return Math.sqrt(par1);
 
 	}
 
-	public double add()
+	static public double add(double par1, double par2)
 	{
 		return (par1 + par2);
 
 	}
 
-	public double subtract()
+	static public double subtract(double par1, double par2)
 	{
 		return (par1 - par2);
 
 	}
 
-	public double divide()
+	static public double divide(double par1, double par2)
 	{
 		return (par1 / par2);
 
 	}
 
-	public double multiply()
+	static public double multiply(double par1, double par2)
 	{
 		return (par1 * par2);
 
 	}
 
-	public double inverseSin()
+	static public double inverseSin(double par1)
 	{
 		return Math.asin(par1);
 
 	}
 
-	public double inverseCos()
+	static public double inverseCos(double par1)
 	{
 		return Math.acos(par1);
 
 	}
 
-	public double inverseTan()
+	static public double inverseTan(double par1)
 	{
 		return Math.atan(par1);
 
 	}
 
-	public double tenToTheX()
+	static public double tenToTheX(double par1)
 	{
 		return Math.pow(10, par1);
 
 	}
 
-	public double eToTheX()
+	static public double eToTheX(double par1)
 	{
 		return Math.pow(Math.E, par1);
 
 	}
 
-	public double sqaured()
+	static public double sqaured(double par1)
 	{
 		return Math.pow(par1, 2);
 
