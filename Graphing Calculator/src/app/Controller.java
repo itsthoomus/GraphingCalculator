@@ -35,7 +35,8 @@ public class Controller {
 	
 	public void control(){
 		
-		view.screenPanel.passFunctionCoords(model.getXValues(), model.getSineYValues(),1000);
+		view.screenPanel.passFunctionCoords(model.getXValues(view.screenPanel.getXBoundaries()), model.getSineYValues(view.screenPanel.getXBoundaries()));
+		view.screenPanel.update();
 		
 		upButtonListener = new ActionListener() {
 			
@@ -63,10 +64,14 @@ public class Controller {
 				if (view.screenPanel.getCurrentMode() == ScreenPanel.MOVE_MODE){
 					view.screenPanel.translate(view.screenPanel.getGridSize()/20.0f, 0);
 				}
+				
 				else if (view.screenPanel.getCurrentMode() == ScreenPanel.TRACE_MODE){
-					view.screenPanel.setTraceIndex(view.screenPanel.getTraceIndex() + (int)(view.screenPanel.getDotsPerUnit() * view.screenPanel.getGridSize()/40.0f));
-					view.screenPanel.setCentre(view.screenPanel.getFunctionPoints()[view.screenPanel.getTraceIndex()].getX(), view.screenPanel.getFunctionPoints()[view.screenPanel.getTraceIndex()].getY());
+					view.screenPanel.translate(view.screenPanel.getGridSize()/20.0f, 0);
+					view.screenPanel.passFunctionCoords(model.getXValues(view.screenPanel.getXBoundaries()), model.getSineYValues(view.screenPanel.getXBoundaries()));
+					Point functionCentre = view.screenPanel.getFunctionPoints()[500];
+					view.screenPanel.setCentre(functionCentre.getX(), functionCentre.getY());
 				}
+				
 				
 				view.screenPanel.update();
 				
@@ -85,7 +90,7 @@ public class Controller {
 				else if (view.screenPanel.getCurrentMode() == ScreenPanel.TRACE_MODE){
 					return;
 				}
-				
+			
 				view.screenPanel.update();
 				
 			}
@@ -100,11 +105,14 @@ public class Controller {
 				if (view.screenPanel.getCurrentMode() == ScreenPanel.MOVE_MODE){
 					view.screenPanel.translate(-view.screenPanel.getGridSize()/20.0f, 0);
 				}
+				
 				else if (view.screenPanel.getCurrentMode() == ScreenPanel.TRACE_MODE){
-					
-					view.screenPanel.setTraceIndex(view.screenPanel.getTraceIndex()- (int)(view.screenPanel.getDotsPerUnit() * view.screenPanel.getGridSize()/40.0f));
-					view.screenPanel.setCentre(view.screenPanel.getFunctionPoints()[view.screenPanel.getTraceIndex()].getX(), view.screenPanel.getFunctionPoints()[view.screenPanel.getTraceIndex()].getY());
+					view.screenPanel.translate(-view.screenPanel.getGridSize()/20.0f, 0);
+					view.screenPanel.passFunctionCoords(model.getXValues(view.screenPanel.getXBoundaries()), model.getSineYValues(view.screenPanel.getXBoundaries()));
+					Point functionCentre = view.screenPanel.getFunctionPoints()[500];
+					view.screenPanel.setCentre(functionCentre.getX(), functionCentre.getY());
 				}
+				
 				
 				view.screenPanel.update();
 				
@@ -119,6 +127,7 @@ public class Controller {
 				
 				view.screenPanel.scale(1.0f/1.15f);
 
+				view.screenPanel.passFunctionCoords(model.getXValues(view.screenPanel.getXBoundaries()), model.getSineYValues(view.screenPanel.getXBoundaries()));
 				view.screenPanel.update();
 				
 			}
@@ -132,6 +141,7 @@ public class Controller {
 				
 				view.screenPanel.scale(1.15f);
 
+				view.screenPanel.passFunctionCoords(model.getXValues(view.screenPanel.getXBoundaries()), model.getSineYValues(view.screenPanel.getXBoundaries()));
 				view.screenPanel.update();
 				
 			}
@@ -147,13 +157,11 @@ public class Controller {
 					view.screenPanel.setCurrentMode(ScreenPanel.TRACE_MODE);
 					view.traceMoveToggleButton.setLabel("MOVE");
 					
-					float xCentre = view.screenPanel.getXBoundaries()[0]+view.screenPanel.getGridSize()/2.0f;
-					float start = view.screenPanel.getFunctionPoints()[0].getX();
-					int index = (int) ((xCentre - start) * view.screenPanel.getDotsPerUnit());
+					view.screenPanel.passFunctionCoords(model.getXValues(view.screenPanel.getXBoundaries()), model.getSineYValues(view.screenPanel.getXBoundaries()));
+					Point functionCentre = view.screenPanel.getFunctionPoints()[500];
+					view.screenPanel.setCentre(functionCentre.getX(), functionCentre.getY());
 					
-					view.screenPanel.setTraceIndex(index);
-					
-					view.screenPanel.setCentre(view.screenPanel.getFunctionPoints()[index].getX(), view.screenPanel.getFunctionPoints()[index].getY());
+				
 				}
 				
 				else if (view.screenPanel.getCurrentMode() == ScreenPanel.TRACE_MODE){

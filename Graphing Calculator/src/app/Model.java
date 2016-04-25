@@ -7,25 +7,32 @@ package app;
  */
 public class Model {
 	
-	// example logic component used to test functions of the screen
 	
-	public float [] getXValues(){
-		float [] result = new float [500000];
-		for (int i = -250000; i< 250000;i++){
-			result[i+250000] = i/1000.0f;
+	public float [] getXValues(float [] XBounds){
+		float [] result = new float [1000];
+		
+		float diff = (XBounds[1] - XBounds[0]) / 1000.0f;
+		
+		for (int i = 0; i<1000; i++){
+			result[i] = diff * i + XBounds[0];
 		}
+		
+		
 		return result;
 		
 	}
 	
-	public float [] getSineYValues(){
+	public float [] getSineYValues(float [] XBounds){
 		
-		float [] result = new float [500000];
+		float [] XValues = getXValues(XBounds);
 		
-		for (int i = -250000; i<250000;i++){
-//			result[i+50000] = (float) Math.sin(i/1000.0f);
-			result[i+250000] = (float) Math.pow((i/1000.0f),2);
+		float [] result = new float [1000];
+		
+		for (int i = 0; i<1000; i++){
+//			result[i] = (float) Math.sin(XValues[i]);
+			result[i] = (float) 2* XValues[i];
 		}
+
 		
 		return result;
 	}
