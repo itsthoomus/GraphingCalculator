@@ -30,7 +30,7 @@ public class Model {
 		
 		for (int i = 0; i<1000; i++){
 //			result[i] = (float) Math.sin(XValues[i]);
-			result[i] = (float) 2* XValues[i];
+			result[i] = (float) Math.sin(XValues[i]);
 		}
 
 		

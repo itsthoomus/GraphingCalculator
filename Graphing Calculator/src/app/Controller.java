@@ -45,6 +45,8 @@ public class Controller {
 				
 				if (view.screenPanel.getCurrentMode() == ScreenPanel.MOVE_MODE){
 					view.screenPanel.translate(0, view.screenPanel.getGridSize()/20.0f);
+					view.screenPanel.passFunctionCoords(model.getXValues(view.screenPanel.getXBoundaries()), model.getSineYValues(view.screenPanel.getXBoundaries()));
+
 				}
 				else if (view.screenPanel.getCurrentMode() == ScreenPanel.TRACE_MODE){
 					return;
@@ -63,6 +65,8 @@ public class Controller {
 				
 				if (view.screenPanel.getCurrentMode() == ScreenPanel.MOVE_MODE){
 					view.screenPanel.translate(view.screenPanel.getGridSize()/20.0f, 0);
+					view.screenPanel.passFunctionCoords(model.getXValues(view.screenPanel.getXBoundaries()), model.getSineYValues(view.screenPanel.getXBoundaries()));
+
 				}
 				
 				else if (view.screenPanel.getCurrentMode() == ScreenPanel.TRACE_MODE){
@@ -86,6 +90,8 @@ public class Controller {
 				
 				if (view.screenPanel.getCurrentMode() == ScreenPanel.MOVE_MODE){
 					view.screenPanel.translate(0, -view.screenPanel.getGridSize()/20.0f);
+					view.screenPanel.passFunctionCoords(model.getXValues(view.screenPanel.getXBoundaries()), model.getSineYValues(view.screenPanel.getXBoundaries()));
+
 				}
 				else if (view.screenPanel.getCurrentMode() == ScreenPanel.TRACE_MODE){
 					return;
@@ -104,6 +110,8 @@ public class Controller {
 				
 				if (view.screenPanel.getCurrentMode() == ScreenPanel.MOVE_MODE){
 					view.screenPanel.translate(-view.screenPanel.getGridSize()/20.0f, 0);
+					view.screenPanel.passFunctionCoords(model.getXValues(view.screenPanel.getXBoundaries()), model.getSineYValues(view.screenPanel.getXBoundaries()));
+
 				}
 				
 				else if (view.screenPanel.getCurrentMode() == ScreenPanel.TRACE_MODE){
