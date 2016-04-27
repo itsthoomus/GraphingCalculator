@@ -22,14 +22,13 @@ public class Model {
 		
 	}
 	
-	public float [] getSineYValues(float [] XBounds){
+	public float [] getYValues(float [] XBounds){
 		
 		float [] XValues = getXValues(XBounds);
 		
 		float [] result = new float [1000];
 		
 		for (int i = 0; i<1000; i++){
-//			result[i] = (float) Math.sin(XValues[i]);
 			result[i] = (float) Math.sin(XValues[i]);
 		}
 

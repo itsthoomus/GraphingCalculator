@@ -1,7 +1,6 @@
 package app;
 
 
-import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
@@ -25,7 +24,7 @@ public class View {
 	public ScreenPanel screenPanel;
 	
 	//panel to hold buttons
-	public JPanel movementButtons;
+	public JPanel buttonPanel;
 	
 	//buttons for moving, tracing, and zooming\
 	public JButton leftButton;
@@ -44,6 +43,7 @@ public class View {
 	}
 	
 	private void init(){
+		
 		//create the frame
 		frame = new JFrame("GDC");
 		frame.setSize(300, 680);
@@ -54,11 +54,10 @@ public class View {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.setResizable(false);
-		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		//add components
+		//add components to the frame
 		addComponents();
 
 		update();
@@ -73,52 +72,59 @@ public class View {
 	// add all the components including the dice, buttons, and chart + labels
 	private void addComponents() {
 		
-		
+		// create a screen
 		screenPanel = new ScreenPanel(7,7,280);
 		frame.add(screenPanel);
 		
-		movementButtons = new JPanel();
-		movementButtons.setBounds(7, 290, 280, 48);
-		movementButtons.setLayout(null);
-		frame.add(movementButtons);
+		// create a panel to hold all the buttons
+		buttonPanel = new JPanel();
+		buttonPanel.setBounds(7, 290, 280, 48);
+		buttonPanel.setLayout(null);
+		frame.add(buttonPanel);
 		
+		//create the up button, add it to the button panel
 		upButton = new BasicArrowButton(BasicArrowButton.NORTH, null, Color.GRAY, Color.BLACK, Color.WHITE);
 		upButton.setBounds(16,0,15,15);
-		movementButtons.add(upButton);
+		buttonPanel.add(upButton);
 		
+		//create the right button, add it to the button panel
 		rightButton = new BasicArrowButton(BasicArrowButton.EAST,null, Color.GRAY, Color.BLACK, Color.WHITE);
 		rightButton.setBounds(32,16,15,15);
-		movementButtons.add(rightButton);
+		buttonPanel.add(rightButton);
 		
+		//create the down button, add it to the button panel
 		downButton = new BasicArrowButton(BasicArrowButton.SOUTH, null, Color.GRAY, Color.BLACK, Color.WHITE);
 		downButton.setBounds(16,32,15,15);
-		movementButtons.add(downButton);
+		buttonPanel.add(downButton);
 		
+		//create the left button, add it to the button panel
 		leftButton = new BasicArrowButton(BasicArrowButton.WEST, null, Color.GRAY, Color.BLACK, Color.WHITE);
 		leftButton.setBounds(0,16,15,15);
-		movementButtons.add(leftButton);
+		buttonPanel.add(leftButton);
 		
+		// create the zoom-in button, format it, and then add it to the button panel
 		zoomInButton = new JButton(new ImageIcon("res/zoom-in.png"));
 		zoomInButton.setBorder(null);
 		zoomInButton.setContentAreaFilled(false);
 		zoomInButton.setBackground(Color.WHITE);
 		zoomInButton.setBounds(48, 0, 24, 24);
-		movementButtons.add(zoomInButton);
+		buttonPanel.add(zoomInButton);
 		
+		// create the zoom-out button, format it, and then add it to the button panel
 		zoomOutButton = new JButton(new ImageIcon("res/zoom-out.png"));
 		zoomOutButton.setBorder(null);
 		zoomOutButton.setContentAreaFilled(false);
 		zoomOutButton.setBackground(Color.WHITE);
 		zoomOutButton.setBounds(48, 24, 24, 24);
-		movementButtons.add(zoomOutButton);
+		buttonPanel.add(zoomOutButton);
 		
+		// create the trace-move toggle button and add it to the button panel
 		traceMoveToggleButton = new Button("TRACE");
 		traceMoveToggleButton.setBackground(null);
 		traceMoveToggleButton.setFont(new Font("Century Gothic", Font.BOLD, 10));
 		traceMoveToggleButton.setBounds(72, 12,40,24);
-		
 		traceMoveToggleButton.setFocusable(false);
-		movementButtons.add(traceMoveToggleButton);
+		buttonPanel.add(traceMoveToggleButton);
 
 		
 		
