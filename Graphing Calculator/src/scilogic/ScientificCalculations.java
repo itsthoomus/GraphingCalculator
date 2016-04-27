@@ -1,36 +1,10 @@
 package scilogic;
 
-// Project Manager Changes: Added method overloading to better support one-variable operations
-
 public class ScientificCalculations
 {
 
-	public static double evalaute(String operationType, double par1,
+	public static double evaluate(String operationType, double par1,
 			double par2)
-	{
-
-		switch (operationType)
-		{
-	
-		case "power":
-			return power(par1, par2);
-	
-		case "add":
-			return add(par1, par2);
-		case "subtract":
-			return subtract(par1, par2);
-		case "divide":
-			return divide(par1, par2);
-		case "multiply":
-			return multiply(par1, par2);
-
-		}
-		System.err.println("operation type unrecognized");
-		return 0;
-
-	}
-	
-	public static double evalaute(String operationType, double par1)
 	{
 
 		switch (operationType)
@@ -46,9 +20,19 @@ public class ScientificCalculations
 		case "log":
 			return log(par1);
 		case "factorial":
-			   return factorial((int) par1);
+			// return factorial((int) par1);
+		case "power":
+			return power(par1, par2);
 		case "squareRoot":
 			return squareRoot(par1);
+		case "add":
+			return add(par1, par2);
+		case "subtract":
+			return subtract(par1, par2);
+		case "divide":
+			return divide(par1, par2);
+		case "multiply":
+			return multiply(par1, par2);
 		case "inverseSin":
 			return inverseSin(par1);
 		case "inverseCos":
@@ -59,7 +43,7 @@ public class ScientificCalculations
 			return tenToTheX(par1);
 		case "eToTheX":
 			return eToTheX(par1);
-		case "sqaured":
+		case "squared":
 			return sqaured(par1);
 		}
 		System.err.println("operation type unrecognized");
@@ -103,16 +87,13 @@ public class ScientificCalculations
 
 	}
 
-	static public double factorial(int par1) { 
-		
-		if (par1 == 1) {
-			return 1;
-		} 
-		else {
-			return par1 * factorial(par1 - 1); 
-		}
-
-	}
+	/*
+	 * static public double factorial(int par1) { if (par1 == 1) { return 1;
+	 * 
+	 * } else { return par1 * factorial(par1 - 1); }
+	 * 
+	 * }
+	 */
 
 	static public double power(double par1, double par2)
 	{

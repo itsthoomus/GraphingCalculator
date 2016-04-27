@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.swing.JPanel;
 
@@ -31,8 +30,6 @@ public class ScreenPanel extends JPanel{
 	private Point [] screenAxisScalePoints;
 	
 	private int currentMode = MOVE_MODE;
-	private int dotsPerUnit;
-	private int traceIndex;
 	
 	
 
@@ -183,7 +180,7 @@ public class ScreenPanel extends JPanel{
 	 * @param yCoords the y-values of the ordered pairs
 	 * @param dotsPerUnit the number of points per 1 unit.
 	 */
-	public void passFunctionCoords(float [] xCoords, float [] yCoords, int dotsPerUnit){
+	public void passFunctionCoords(float [] xCoords, float [] yCoords){
 		
 		functionPoints = new Point [xCoords.length];
 		
@@ -191,9 +188,6 @@ public class ScreenPanel extends JPanel{
 			functionPoints[i] = new Point(xCoords[i], yCoords[i]);
 		}
 		
-		this.dotsPerUnit = dotsPerUnit;
-
-		update();
 				
 	}
 	
@@ -225,6 +219,7 @@ public class ScreenPanel extends JPanel{
 	 */
 	public void update(){
 		
+		
 		if (functionPoints!= null){
 			screenFunctionPoints = createScreenPoints(functionPoints);
 		}
@@ -242,7 +237,6 @@ public class ScreenPanel extends JPanel{
 			axisScalePoints[i] = new Point(Math.round(xTranslation + i/2-(axisScalePoints.length/8)), 0.25f);
 			axisScalePoints[i+1] = new Point(Math.round(xTranslation + i/2-(axisScalePoints.length/8)), -0.25f);
 			
-			System.out.println(axisScalePoints[i].getX() + " "+axisScalePoints[i].getY());
 		}
 		
 		for (int i = axisScalePoints.length/2; i<axisScalePoints.length; i+=2){
@@ -325,14 +319,6 @@ public class ScreenPanel extends JPanel{
 	}
 	
 	/**
-	 * gets the resolution of the function points (amount of points within an x-interval of 1).
-	 * @return integer value representing the resolution of function points.
-	 */
-	public int getDotsPerUnit(){
-		return dotsPerUnit;
-	}
-	
-	/**
 	 * Get an array of points for all the plotted values of the function.
 	 * @return point array with all function values.
 	 */
@@ -340,25 +326,6 @@ public class ScreenPanel extends JPanel{
 		return functionPoints;
 	}
 
-
-
-	/**
-	 * gets the current index of the function for trace mode.
-	 * @return current index of the functionPoints []
-	 */
-	public int getTraceIndex() {
-		return traceIndex;
-	}
-
-
-
-	/**
-	 * sets the current index of the function for trace mode.
-	 * @param traceIndex
-	 */
-	public void setTraceIndex(int traceIndex) {
-		this.traceIndex = traceIndex;
-	}
 	
 	
 	
